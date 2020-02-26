@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block page_title %}
+  Send Request
+{% endblock %}
+{% block page_content %}
+  <div id="app" class="row">
+    <div class="col-8">
+      <div class="table-responsive">
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-striped dt">
+              <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Units Required</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="pro, index in products">
+                <td>[[ pro.name ]]</td>
+                <td>[[pro.cat ]]</td>
+                <td>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Units</span>
+                    </div>
+                    <input :id="`prol${pro.id}`" style="width: 20px !important;" type="number" step="1"
+                           class="form-control">
+                    <div class="input-group-append">
+                      <button
+                              @click.prevent="addToList(pro.id, pro.name, pro.meas, $('#' + `prol${pro.id}`).val())"
+                              class="btn btn-flat btn-success"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              {% comment %}
+              {% for product in products %}
+                <tr>
+                  <td>{{ product }}</td>
+                  <td>{{ product.category }}</td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div>Units</div>
+                      </div>
+                      <input style="width: 20px !important;" type="number" step="1" class="form-control">
+                      <div class="input-group-append">
+                        <button class="btn btn-flat btn-success">Add</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+              {% endcomment %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header">
+          <h3>Selected Products ([[ req.length ]])</h3>
+        </div>
+        <div class="card-body">
+          <p v-if="!products.length">
+            <small class="text-muted">Start by adding units and clicking on "add" to add products to your
+              request</small>
+          </p>
+          <ul class="list-group list-group-flush" v-else>
+            <li v-for="item, index in req" class="list-group-item"><b class="text-primary">[[ item.units ]] [[ item.meas
+              ]]</b> of <b>[[ item.name ]]</b>
+            </li>
+          </ul>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" v-model="toSend" name="data">
+            <button v-if="req.length" type="submit" class="btn btn-block btn-success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  <script>
+    let products_all = [
+      {% for pro in products %}
+        {
+          id: {{ pro.id }},
+          name: `{{ pro.name }}`,
+          meas: `{{ pro.measles }}`,
+          cat: `{{ pro.category }}`
+        },
+      {% endfor %}
+    ];
+    let app = new Vue({
+      el: "#app",
+      delimiters: ['[[', ']]'],
+      data: {
+        products: [],
+        req: []
+      },
+      mounted() {
+        this.products = products_all;
+      },
+      computed: {
+        toSend: {
+          get() {
+            return JSON.stringify(
+                    this.req.map(i => {
+                      return {
+                        id: i.id,
+                        units: i.units
+                      }
+                    })
+            )
+          },
+          set(newValue) {
+            this.value.second = newValue;
+          }
+        }
+      },
+      methods: {
+        addToList(id, name, meas, uni) {
+          this.req = this.req.filter(x => {
+            return x.id !== id;
+          });
+          this.req.push({
+            id: id,
+            name: name,
+            meas: meas,
+            units: uni,
+          });
+        },
+        sendReq() {
+          alert(JSON.stringify(
+                  this.req.map(i => {
+                    return {
+                      id: i.id,
+                      units: i.units
+                    }
+                  })
+          ))
+        },
+      },
+    });
+
+  </script>
+{% endblock %}

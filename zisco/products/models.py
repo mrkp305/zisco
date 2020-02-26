@@ -49,11 +49,16 @@ class Product(UUIDModel):
 
     @property
     def stock_alt(self):
-
         if self.measurement and len(self.measurement.split(":")) == 3:
             plu, sin, si = tuple(self.measurement.split(":"))
             return f"{ic(self.stock)} {plu.title()}"
         return f"{ic(self.stock)}"
+
+    @property
+    def measles(self):
+        if self.measurement and len(self.measurement.split(":")) == 3:
+            return self.measurement.split(":")[0]
+        return "Units"
 
     @property
     def in_stock(self):

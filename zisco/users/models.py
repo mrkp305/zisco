@@ -26,10 +26,11 @@ class Customer(UUIDModel):
         null=True, blank=True,
         max_length=255
     )
-    managers = models.ManyToManyField(
+    user = models.OneToOneField(
         to="users.User",
-        related_name="profiles_managed",
-        blank=True,
+        related_name="profile",
+        on_delete=models.CASCADE,
+        null=True, blank=True
     )
 
     class Meta:

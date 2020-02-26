@@ -11,7 +11,7 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="7">
+          <list size="8">
             <item index="0" class="java.lang.String" itemvalue="v-if" />
             <item index="1" class="java.lang.String" itemvalue="v-for" />
             <item index="2" class="java.lang.String" itemvalue=":id" />
@@ -19,6 +19,7 @@
             <item index="4" class="java.lang.String" itemvalue=":aria-controls" />
             <item index="5" class="java.lang.String" itemvalue=":key" />
             <item index="6" class="java.lang.String" itemvalue="@click" />
+            <item index="7" class="java.lang.String" itemvalue="@click.prevent" />
           </list>
         </value>
       </option>
@@ -55,6 +56,7 @@
           <option value="autopros.workshops.dashboard.views.base.RestrictedViewMixin.request" />
           <option value="autopros.workshops.dashboard.views.base.RestrictedViewMixin.kwargs" />
           <option value="extrabet.betting.admin.bets.fget" />
+          <option value="zisco.customers.views.Base.request" />
         </list>
       </option>
     </inspection_tool>

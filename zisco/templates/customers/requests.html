@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block page_title %}
+  Send Request
+{% endblock %}
+{% block page_content %}
+  <div class="row">
+    <div class="table-responsive">
+      <div class="card">
+        <div class="card-body">
+          {% for r in object_list %}
+            <h4>#{{ r.id }} - {{ r.created }}</h4>
+            <h6>Requested:</h6>
+            <ul>
+              {% for i in r.items.all %}
+                <li>{{ i }}</li>
+              {% endfor %}
+
+            </ul>
+          {% endfor %}
+          <h4>Quotation: <span class="text-success">{{ r.quote|default:"Pending" }}</span></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

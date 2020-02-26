@@ -82,6 +82,7 @@ LOCAL_APPS = [
     "zisco.products.apps.ProductsConfig",
     "zisco.orders.apps.OrdersConfig",
     "zisco.production.apps.ProductionConfig",
+    "zisco.customers.apps.CustomersConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -257,3 +258,4 @@ ROOT_HOSTCONF = 'config.hosts'
 HOST_SCHEME = 'http'
 DEFAULT_HOST = 'admin'
 PARENT_HOST = 'zisco.local'
+HOST_PORT = "8000"
