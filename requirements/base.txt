@@ -18,4 +18,4 @@ django-redis==4.10.0  # https://github.com/niwinz/django-redis
 djangorestframework==3.10.3  # https://github.com/encode/django-rest-framework
 coreapi==2.3.3  # https://github.com/core-api/python-client
 
-reportlab==3.5.34
+reportlab==3.5.55
